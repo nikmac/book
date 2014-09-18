@@ -2,4 +2,9 @@
 
 *.pyc
 
+<<<<<<< HEAD
 .idea/
+=======
+.idea/
+
+>>>>>>> 765b48ceffec11406ce3f527b9e415251a07c0fa
