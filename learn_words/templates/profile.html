@@ -5,4 +5,14 @@
 {% block link %}{%  endblock link %}
 {% block content %}
     <h1>Welcome to Profile</h1>
+    <ol>
+        {% for word in current %}
+            <li>{{ word.word_name }}</li>
+        {% endfor %}
+    </ol>
+    <ul>
+        {% for word in finished %}
+            <li>{{ word.word_name }}</li>
+        {% endfor %}
+    </ul>
 {%  endblock content %}

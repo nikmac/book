@@ -7,6 +7,10 @@ class Article(models.Model):
 
 
 class Word(models.Model):
+    word_name = models.CharField(max_length=40)
     users = models.ManyToManyField(User, related_name='words')
     articles = models.ManyToManyField(Article, related_name='words')
     learned = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.word_name
