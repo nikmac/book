@@ -19,5 +19,6 @@ urlpatterns = patterns('',
     url(r'^learned/(?P<word_id>\d+)/$', 'learn_words.views.learned', name='learned'),
     url(r'^article/(?P<word_id>\d+)/$', 'learn_words.views.article', name='article'),
     url(r'^newword/$', 'learn_words.views.newword', name='newword'),
+    url(r'^profile/edit/$', 'learn_words.views.edit_profile', name='edit_profile'),
     url(r'^admin/', include(admin.site.urls)),
 )

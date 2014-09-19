@@ -16,3 +16,8 @@ class NewWord(forms.ModelForm):
         model = Word
         fields = ('word',)
 
+
+class EditProfile(forms.Form):
+    email = forms.EmailField()
+    first_name = forms.CharField()
+    last_name = forms.CharField()

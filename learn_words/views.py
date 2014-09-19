@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, redirect
 from book import settings
-from learn_words.forms import EmailUserCreationForm, NewWord
+from learn_words.forms import EmailUserCreationForm, NewWord, EditProfile
 from learn_words.models import Word, Article
 
 
@@ -41,7 +41,7 @@ def register(request):
     return render(request, "registration/register.html", {'form': form})
 
 def newword(request):
-    if request.method =="POST":
+    if request.method == "POST":
         form = NewWord(request.POST)
         if form.is_valid():
             current_word = Word.objects.create(word_name=form.cleaned_data['word'])
@@ -59,3 +59,16 @@ def learned(request, word_id):
     word.learned = True
     word.save()
     return redirect('profile')
+
+
+def edit_profile(request):
+    if request.method == "POST":
+        form = EditProfile(request.POST)
+        if form.is_valid():
+            request.user.email = form.cleaned_data['email']
+            request.user.first_name = form.cleaned_data['first_name']
+            request.user.last_name = form.cleaned_data['last_name']
+            return redirect('profile')
+    else:
+        form = EditProfile() # Don't remember how to return a filled out form. I think we did it with the cards
+    return render(request, 'edit_profile.html', {'form': form})
