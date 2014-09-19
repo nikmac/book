@@ -3,9 +3,14 @@
 
 {% block title %}{%  endblock title %}
 {% block link %}
-    <li><a href="{% url "login" %}">Login</a></li>
-    <li><a href="{% url "register" %}">Register</a></li>
+
 {%  endblock link %}
 {% block content %}
-    <h1>Welcome to Learn Words!</h1>
+    <section>
+        <h1 class="welcome">Welcome to Learn Words!</h1>
+
+        <h4>Pneumonoultramicroscopicsilicovolcanoconiosis</h4>
+        <p>The longest word you'll never use. But you could learn a few more.<br>
+        So if you'd like to get started, login or register and become linguistically delicious</p>
+    </section>
 {%  endblock content %}

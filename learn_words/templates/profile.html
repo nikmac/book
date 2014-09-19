@@ -1,22 +1,25 @@
 {% extends "base_template.html" %}
 
 
-{% block title %}{%  endblock title %}
-{% block link %}{%  endblock link %}
+{% block title %}{% endblock title %}
+{% block link %}<li><a href="{% url 'newword' %}">Add Word</a></li>{% endblock link %}
 {% block content %}
-    <h1>Welcome to Profile</h1>
-    <ol>
-       <h4>Current Words to Learn</h4>
-        {% for word in current %}
-            <li><a href="{%  url "article" word.id %}">{{ word.word_name }}</a></li>
-
-        {% endfor %}
-    </ol>
-    <ul>
-
-        <h4>Words Already Learned</h4>
-        {% for word in finished %}
-            <li><a href="{% url "article" word.id %}">{{ word.word_name }}</a></li>
-        {% endfor %}
-    </ul>
+    <section>
+        <h1 class="welcome">Welcome to your profile, {{ user.username | capfirst }}</h1>
+        <h4 class="welcome">You started learning more words since: {{ user.date_joined }}</h4>
+        <section id="lists">
+            <ul id="current">
+                <h4>Current Words to Learn</h4>
+                {% for word in current %}
+                    <li><a href="{%  url "article" word.id %}">{{ word.word_name }}</a></li>
+                {% endfor %}
+            </ul>
+            <ul id="finished">
+                <h4>Words Already Learned</h4>
+                {% for word in finished %}
+                    <li><a href="{% url "article" word.id %}">{{ word.word_name }}</a></li>
+                {% endfor %}
+            </ul>
+        </section>
+    </section>
 {%  endblock content %}

@@ -4,8 +4,8 @@
 {% block title %}{%  endblock title %}
 {% block link %}{%  endblock link %}
 {% block content %}
-    <h1>article</h1>
+    <h1>{{ word.word_name }}:</h1>
     {{ articles | random }}
+
+    <a href="{% url 'learned' word.id %}">Learned</a>
 {%  endblock content %}
-
-

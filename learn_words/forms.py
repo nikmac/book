@@ -12,7 +12,6 @@ class EmailUserCreationForm(UserCreationForm):
 class NewWord(forms.ModelForm):
     word = forms.CharField(required=True, max_length=40)
 
-
     class Meta:
         model = Word
         fields = ('word',)

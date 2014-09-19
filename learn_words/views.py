@@ -10,7 +10,7 @@ def home(request):
     return render(request, 'home.html')
 
 
-# @login_required
+
 def profile(request):
     current_user = request.user
     current_words = current_user.words.filter(learned=False)
@@ -20,8 +20,9 @@ def profile(request):
 
 
 def article(request, word_id):
+    word = Word.objects.get(id=word_id)
     data = Article.objects.filter(words=word_id)
-    return render(request, 'article.html', {"articles":data})
+    return render(request, 'article.html', {"articles": data, "word": word})
 
 
 def register(request):
@@ -45,11 +46,16 @@ def newword(request):
         if form.is_valid():
             current_word = Word.objects.create(word_name=form.cleaned_data['word'])
             current_word.users.add(request.user)
-
             current_word.articles = Article.objects.filter(text__icontains=current_word)
 
-
+            return redirect('profile')
     else:
         form = NewWord()
-    return render(request,"newword.html", {'form': form})
+    return render(request, "newword.html", {'form': form})
 
+
+def learned(request, word_id):
+    word = Word.objects.get(id=word_id)
+    word.learned = True
+    word.save()
+    return redirect('profile')
