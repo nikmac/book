@@ -2,7 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, redirect
 from book import settings
-from learn_words.forms import EmailUserCreationForm
+from learn_words.forms import EmailUserCreationForm, NewWord
+from learn_words.models import Word, Article
 
 
 def home(request):
@@ -18,9 +19,9 @@ def profile(request):
     return render(request, 'profile.html', data)
 
 
-def article(request):
-
-    return render(request, 'article.html')
+def article(request, word_id):
+    data = Article.objects.filter(words=word_id)
+    return render(request, 'article.html', {"articles":data})
 
 
 def register(request):
@@ -37,3 +38,18 @@ def register(request):
     else:
         form = EmailUserCreationForm()
     return render(request, "registration/register.html", {'form': form})
+
+def newword(request):
+    if request.method =="POST":
+        form = NewWord(request.POST)
+        if form.is_valid():
+            current_word = Word.objects.create(word_name=form.cleaned_data['word'])
+            current_word.users.add(request.user)
+
+            current_word.articles = Article.objects.filter(text__icontains=current_word)
+
+
+    else:
+        form = NewWord()
+    return render(request,"newword.html", {'form': form})
+

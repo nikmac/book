@@ -5,6 +5,9 @@ from django.db import models
 class Article(models.Model):
     text = models.TextField()
 
+    def __unicode__(self):
+        return self.text
+
 
 class Word(models.Model):
     word_name = models.CharField(max_length=40)
