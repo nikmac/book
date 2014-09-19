@@ -47,7 +47,9 @@ def newword(request):
             current_word = Word.objects.create(word_name=form.cleaned_data['word'])
             current_word.users.add(request.user)
             current_word.articles = Article.objects.filter(text__icontains=current_word)
-
+            # if current_word.articles.count == 0:
+            #     error_message = "blah"
+            #     return render(request, "newword.html", error_message)
             return redirect('profile')
     else:
         form = NewWord()

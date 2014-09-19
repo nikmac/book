@@ -13,7 +13,7 @@
                 <ul>
                     <li><div><img id="logo" src="{% static 'img/goat.jpeg' %}"></div></li>
                     {% if user.is_authenticated %}
-                        <li><div><img id="logo" src="{% static 'img/goat.jpeg' %}"></div></li>
+{#                        <li><div><img id="logo" src="{% static 'img/goat.jpeg' %}"></div></li>#}
                         <li><a href="{% url 'home' %}">Home</a></li>
                         <li><a href="{% url 'profile' %}">Profile</a></li>
                         <li><a href="{% url 'logout' %}">Logout</a></li>
