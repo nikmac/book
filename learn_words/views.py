@@ -10,7 +10,6 @@ def home(request):
     return render(request, 'home.html')
 
 
-
 def profile(request):
     current_user = request.user
     current_words = current_user.words.filter(learned=False)
@@ -41,19 +40,22 @@ def register(request):
     return render(request, "registration/register.html", {'form': form})
 
 def newword(request):
-    if request.method =="POST":
+    if request.method == "POST":
         form = NewWord(request.POST)
+        # form = NewWord()
         if form.is_valid():
             current_word = Word.objects.create(word_name=form.cleaned_data['word'])
             current_word.users.add(request.user)
             current_word.articles = Article.objects.filter(text__icontains=current_word)
-            # if current_word.articles.count == 0:
-            #     error_message = "blah"
-            #     return render(request, "newword.html", error_message)
+
+            if current_word.articles.count() == 0:
+                current_word.delete()
+                error = "We don't have any articles with that word."
+                return render(request, 'newword.html', {'form': form, 'error_message': error})
             return redirect('profile')
     else:
         form = NewWord()
-    return render(request, "newword.html", {'form': form})
+    return render(request, "newword.html", {'form': form, 'error_message': ''})
 
 
 def learned(request, word_id):
@@ -61,3 +63,17 @@ def learned(request, word_id):
     word.learned = True
     word.save()
     return redirect('profile')
+
+
+@login_required()
+def edit_profile(request):
+    if request.method == "POST":
+        form = EditProfile(request.POST)
+        if form.is_valid():
+            request.user.email = form.cleaned_data['email']
+            request.user.first_name = form.cleaned_data['first_name']
+            request.user.last_name = form.cleaned_data['last_name']
+            return redirect('profile')
+    else:
+        form = EditProfile(instance=request.user)
+    return render(request, 'edit_profile.html', {'form': form})

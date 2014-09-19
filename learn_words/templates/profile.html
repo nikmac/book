@@ -2,7 +2,12 @@
 
 
 {% block title %}{% endblock title %}
-{% block link %}<li><a href="{% url 'newword' %}">Add Word</a></li>{% endblock link %}
+
+{% block link %}
+{#    <il><a href="{% url 'edit_profile' %}">Edit Profile</a></il>#}
+    <li><a href="{% url 'newword' %}">Add Word</a></li>
+{% endblock link %}
+
 {% block content %}
     <section>
         <h1 class="welcome">Welcome to your profile, {{ user.username | capfirst }}</h1>
