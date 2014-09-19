@@ -4,6 +4,7 @@
 <div>
     <form method="post" action=".">
         {% csrf_token %}
+        {{ error_message }}<br>
         {{ form.as_p }}
 
         <input value="Submit" type="submit">
